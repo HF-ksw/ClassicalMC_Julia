@@ -30,6 +30,8 @@ function normalize_vect(randx,randy,spin_x, spin_y, spin_z)
      spin_y[randy, randx]/=norm
      spin_z[randy, randx]/=norm
 
+     return spin_x, spin_y, spin_z
+
 end
 
 
@@ -71,7 +73,7 @@ function mc_step(energy, spin_x, spin_y, spin_z,T)  # local update MC with Metro
      spin_y[randy, randx] +=  (2 *rand() -1)
      spin_z[randy, randx] += (2 *rand() -1)
 
-     normalize_vect(randx,randy,spin_x,spin_y,spin_z)
+     spin_x, spin_y, spin_z = normalize_vect(randx,randy,spin_x,spin_y,spin_z)
 
     ################ calculate the energy of the new spin config #######
 
@@ -82,6 +84,7 @@ function mc_step(energy, spin_x, spin_y, spin_z,T)  # local update MC with Metro
             spin_x[randy,randx],  spin_y[randy,randx],  spin_z[randy, randx] = temp
      end
 
+     return spin_x, spin_y, spin_z
 
 end
 
@@ -132,7 +135,7 @@ end
     ########################## MC run  ######################################
     for i in 1:maxMCstep
 
-        mc_step(energy, spin_x, spin_y, spin_z, T)
+        spin_x, spin_y, spin_z = mc_step(energy, spin_x, spin_y, spin_z, T)
 
 
         if i % (Lx*Ly) == 0
