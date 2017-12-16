@@ -1,3 +1,5 @@
+#https://github.com/kswng/ClassicalMC_Julia
+
 using PyPlot
 
 ##################### calculation parameters ##############
